@@ -1,18 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="18dp"
+        android:includeFontPadding="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/bell"
+        android:layout_marginEnd="28dp"
+        app:layout_constraintTop_toTopOf="@id/userIcon"
+        app:layout_constraintEnd_toStartOf="@id/userIcon"
+        />
+
+    <ImageView
+        android:id="@+id/userIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/user"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/info"
+        android:textStyle="bold"
+        android:layout_marginBottom="39dp"
+        android:layout_marginStart="22dp"
+        android:includeFontPadding="false"
+        android:drawableEnd="@drawable/chevron_right"
+        android:layout_marginEnd="22dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/railRoadInspectionTextView"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/railRoadInspectionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/railroad_inspection"
+        android:textStyle="bold"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="22dp"
+        android:includeFontPadding="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/cameraButton"
+        android:textColor="@color/black"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cameraButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="h, 150:252"
+        android:text="@string/camera"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="45dp"
+        app:cornerRadius="24dp"
+        app:backgroundTint="#42CF48"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/galleryButton"
+        />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/galleryButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text="@string/gallery"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="22dp"
+        app:cornerRadius="24dp"
+        app:backgroundTint="#28B2FF"
+        app:layout_constraintDimensionRatio="h, 150:252"
+        app:layout_constraintStart_toEndOf="@id/cameraButton"
+        app:layout_constraintBottom_toBottomOf="@id/cameraButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

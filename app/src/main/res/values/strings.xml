@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Gotrain</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="railroad_inspection">Railroad Inspection</string>
+    <string name="info">Info</string>
 </resources>
