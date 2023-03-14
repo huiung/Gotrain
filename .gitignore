@@ -13,3 +13,36 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# IntelliJ
+.iml
+.idea
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# User-specific configurations
+.ideacaches
+.idealibraries
+.ideashelf
+.ideaworkspace.xml
+.ideatasks.xml
+.idea.name
+.ideacompiler.xml
+.ideacopyrightprofiles_settings.xml
+.ideaencodings.xml
+.ideamisc.xml
+.ideamodules.xml
+.ideascopesscope_settings.xml
+.ideadictionaries
+.ideavcs.xml
+.ideajsLibraryMappings.xml
+.ideadatasources.xml
+.ideadataSources.ids
+.ideasqlDataSources.xml
+.ideadynamic.xml
+.ideauiDesigner.xml
+.ideaassetWizardSettings.xml
+.ideagradle.xml
+.ideajarRepositories.xml
+.ideanavEditor.xml
