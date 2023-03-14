@@ -2,5 +2,7 @@
 <resources>
     <style name="Theme.Gotrain" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowSplashScreenBackground">#28B2FF</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
