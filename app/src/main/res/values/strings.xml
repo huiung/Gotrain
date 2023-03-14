@@ -4,4 +4,6 @@
     <string name="gallery">Gallery</string>
     <string name="railroad_inspection">Railroad Inspection</string>
     <string name="info">Info</string>
+    <string name="inspect">Inspect</string>
+    <string name="next_image">Next Image</string>
 </resources>
