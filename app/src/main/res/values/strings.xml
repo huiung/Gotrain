@@ -6,4 +6,6 @@
     <string name="info">Info</string>
     <string name="inspect">Inspect</string>
     <string name="next_image">Next Image</string>
+    <string name="report">Report</string>
+    <string name="retry">Retry</string>
 </resources>

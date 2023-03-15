@@ -1,15 +1,22 @@
 package com.tf.practice
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.tf.practice.base.BaseActivity
 import com.tf.practice.databinding.ActivityInspectBinding
 import com.tf.practice.ml.Model
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.io.File
 import java.io.IOException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -23,10 +30,50 @@ class InspectActivity: BaseActivity<ActivityInspectBinding>(ActivityInspectBindi
     private val imageSize = 150
     private var uri: Uri? = null
 
+    private val permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+        if (isGranted) {
+            binding.resultImageView.isVisible = false
+            takeImage()
+        }
+    }
+
+    private val cameraLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+
+        if (isSuccess) {
+            latestTmpUri?.let { uri ->
+                binding.inspectImageView.setImageURI(uri)
+
+                binding.bottomBtn.apply {
+                    text = resources.getString(R.string.inspect)
+
+                    setOnClickListener {
+                        val bitmap = Bitmap.createScaledBitmap(
+                            binding.inspectImageView.drawable.toBitmap(),
+                            imageSize,
+                            imageSize,
+                            false
+                        )
+                        classifyImage(bitmap)
+                    }
+                }
+            }
+        }
+    }
+
+    private var latestTmpUri: Uri? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         uri = intent.getParcelableExtra(ARG_URI)
+
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
+
+        binding.closeBtn.setOnClickListener {
+            finish()
+        }
 
         binding.inspectImageView.setImageURI(uri)
 
@@ -66,12 +113,13 @@ class InspectActivity: BaseActivity<ActivityInspectBinding>(ActivityInspectBindi
             val confidences = outputFeature0.floatArray
             // find the index of the class with the biggest confidence.
 
+            val pass = confidences[0] == 1.0f
 
             binding.resultImageView.apply {
                 isVisible = true
 
                 setImageResource(
-                    if (confidences[0] == 1.0f) {
+                    if (pass) {
                         R.drawable.ic_pass
                     } else {
                         R.drawable.ic_fail
@@ -79,10 +127,65 @@ class InspectActivity: BaseActivity<ActivityInspectBinding>(ActivityInspectBindi
                 )
             }
 
+            binding.backBtn.isVisible = false
+            binding.closeBtn.isVisible = true
+
+            binding.bottomBtn.apply {
+
+                text = if (pass) {
+                    resources.getString(R.string.next_image)
+                } else {
+                    resources.getString(R.string.inspect)
+                }
+
+                if (pass) {
+                    setOnClickListener {
+                        if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                            binding.resultImageView.isVisible = false
+                            takeImage()
+                        } else {
+                            permissionLauncher.launch(Manifest.permission.CAMERA)
+                        }
+                    }
+                }
+
+                isVisible = pass
+            }
+
+            binding.reportBtn.apply {
+                isVisible = !pass
+            }
+
+            binding.retryBtn.apply {
+                isVisible = !pass
+
+                setOnClickListener {
+                    finish()
+                }
+            }
+
             // Releases model resources if no longer used.
             model.close()
         } catch (e: IOException) {
             // handle exception
         }
+    }
+
+    private fun takeImage() {
+        lifecycleScope.launchWhenStarted {
+            getTmpFileUri().let { uri ->
+                latestTmpUri = uri
+                cameraLauncher.launch(uri)
+            }
+        }
+    }
+
+    private fun getTmpFileUri(): Uri {
+        val tmpFile = File.createTempFile("tmp_image_file", ".png", cacheDir).apply {
+            createNewFile()
+            deleteOnExit()
+        }
+
+        return FileProvider.getUriForFile(applicationContext, "${BuildConfig.APPLICATION_ID}.provider", tmpFile)
     }
 }
