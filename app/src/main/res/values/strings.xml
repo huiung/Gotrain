@@ -1,11 +1,22 @@
 <resources>
-    <string name="app_name">Gotrain</string>
+    <string name="app_name">RailVision</string>
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
-    <string name="railroad_inspection">Railroad Inspection</string>
     <string name="info">Info</string>
+    <string name="railroad_inspection">Railroad Inspection</string>
     <string name="inspect">Inspect</string>
     <string name="next_image">Next Image</string>
     <string name="report">Report</string>
     <string name="retry">Retry</string>
+
+    <string name="info_title_text_1">About RailVision</string>
+    <string name="info_description_text_1">
+Railways are susceptible to many things: such as pressure, oxidation, and corrosion. Flawed railways require professional knowledge and an expensive inspection system to prevent safety accidents. Our application is oriented toward groups that do not have their own railroad inspection system due to economic, technical, or political reasons. To check whether the railways are defective or not, users should just take a photo of potentially defective railways with this app. The result would show up on display whether the railway is defective or not. We developed an image classification deep learning model based on the VGG-16 model, which achieved 82% accuracy with a limited amount of data. We are planning to improve this app in terms of 1) model performance with additional data 2) new features like GPS tracking and object detection and 3) collaboration with other research groups in the future.
+</string>
+
+    <string name="info_title_text_2">About Team</string>
+    <string name="info_description_text_2">
+We are students from South Korea, who designed/developed/published RailVision to provide a practical solution for railroad inspection. This application will help you to detect whether the train rail is flawed or not, by simply taking just one photo as input. We hope our app to be a solution to prevent any safety accident related to the railroad, and we are planning to keep improving it
+</string>
+
 </resources>
